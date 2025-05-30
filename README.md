@@ -1,155 +1,137 @@
-# 📁 File Parser – Spring Boot & Maven Project
+# 📂 File Parser – Spring Boot REST API
 
 **Author:** Oreneile Emmanuel Sejeso  
-**Version:** 1.0-SNAPSHOT  
-**Language:** Java 17  
-**Framework:** Spring Boot  
-**Build Tool:** Maven
+**Updated:** May 2025  
+**Tech Stack:** Java 17, Spring Boot 3, Maven, Swagger UI
 
 ---
 
-## 🧠 Project Overview
+## 📝 Project Overview
 
-The File Parser is a Spring Boot-based Java application that reads text files, analyzes their contents, and generates detailed reports on word usage. Originally a personal console utility built two years ago, this project has been modernized with Spring Boot, Maven, modular service architecture, and test coverage to demonstrate professional-level development practices.
+This application allows users to upload plain text files via a REST API and generates simple analytics:
+- Total lines
+- Total words
+- Word frequency
+- Top 10 most frequent words
 
-It is intended as a showcase for roles involving backend development, data/text analysis, or application engineering.
-
----
-
-## ✨ Features
-
-- ✅ Reads `.txt` files from a file path
-- ✅ Parses line and word counts
-- ✅ Calculates word frequency (case-insensitive, punctuation removed)
-- ✅ Prints summary to console
-- ✅ Writes report to an `.out` file
-- ✅ Spring Boot-based structure
-- ✅ Includes unit test for core logic
-- ✅ Maven-enabled build and test process
-- ✅ REST API for file upload and analysis
+> ✅ Recently updated from a personal project to a professional, Maven-structured Spring Boot application, demonstrating clean code, modular design, RESTful best practices, and testability.
 
 ---
 
-## 📂 Supported File Formats
+## 🚀 Features
 
-- Plain text files (`.txt`)
-- Log files (`.log`)
-- CSV files (`.csv`) — reads as plain text; no structured CSV parsing yet
-
-> ⚠️ Note: All files are treated as line-based plain text. Special formatting (like CSV columns) is not interpreted.
+- REST API to upload `.txt` files
+- Automatic file content analysis
+- Console and optional file report logging
+- Swagger UI documentation
+- JUnit 5 test coverage with `MockMvc`
+- Error handling for empty/missing/invalid files
 
 ---
 
-## 🛠 Technologies Used
+## 🧪 Sample Endpoints
 
-- Java 17
-- Spring Boot 3+
-- Maven
-- JUnit 5
-- SLF4J (Logging placeholder)
-- IntelliJ IDEA / VS Code
+### 🔄 Upload a File
+```
+POST /api/files/upload
+Content-Type: multipart/form-data
+```
+
+Form field: `file` → upload your `.txt` file
+
+### 📘 Swagger UI
+
+> http://localhost:8080/swagger-ui/index.html
+
+---
+
+## 📊 Sample Output
+
+```json
+{
+  "lineCount": 12,
+  "wordCount": 96,
+  "wordFrequency": {
+    "data": 11,
+    "file": 9,
+    "parser": 6
+  }
+}
+```
+
+---
+
+## 📁 Supported Formats
+
+Currently supports:
+- `.txt` (plain text)
+
+Planned enhancements:
+- `.csv`, `.log`, `.md`
+
+---
+
+## 🧪 Testing
+
+To run all tests:
+```bash
+mvn test
+```
+
+Test coverage includes:
+- File parsing logic
+- REST API endpoint
+- Invalid input (empty or missing file)
+- Large file simulation
+
+---
+
+## 🛠 Requirements
+
+- Java 17+
+- Maven 3.6+
+- Internet for dependency downloads
+
+---
+
+## ▶️ Running the App
+
+```bash
+# Clone or unzip project
+cd file-parser
+
+# Build and run
+mvn clean install
+mvn spring-boot:run
+```
+
+Then visit: http://localhost:8080/swagger-ui/index.html
 
 ---
 
 ## 📂 Project Structure
 
 ```
-file-parser/
-├── src/
-│   ├── main/
-│   │   └── java/com/oreneile/fileparser/
-│   │       ├── Main.java                # Spring Boot entry point
-│   │       └── service/
-│   │           ├── FileReaderService.java
-│   │           ├── ParserService.java
-│   │           └── ReportService.java
-│   │       └── controller/
-│   │           └── FileController.java  # REST API for file uploads
-│   └── test/java/com/oreneile/fileparser/
-│       └── ParserServiceTest.java       # Unit test
-├── pom.xml                              # Maven build configuration
-└── README.md                            # Project documentation
+src/
+├── main/
+│   ├── java/com/oreneile/fileparser/
+│   │   ├── Main.java
+│   │   ├── controller/FileController.java
+│   │   └── service/{ParserService, ReportService}.java
+│   └── resources/application.properties
+├── test/
+│   └── java/com/oreneile/fileparser/controller/FileControllerTest.java
 ```
 
 ---
 
-## 🚀 How to Build and Run
+## 🔐 License
 
-### ✅ Prerequisites
-
-- Java 17+
-- Maven 3.8+
-
-### 💻 Run via Command Line
-
-1. **Build the project**
-```bash
-mvn clean package
-```
-
-2. **Run the application (CLI Mode)**
-```bash
-java -jar target/file-parser-1.0-SNAPSHOT.jar path/to/your/textfile.txt
-```
-
-3. **Run the application (API Mode)**
-```bash
-mvn spring-boot:run
-```
-Access API at: `http://localhost:8080/api/files/upload`
-
-4. **Output**
-- Console: displays line/word count and top 10 most frequent words
-- File: writes to `yourfile.txt.out`
-
-### 🔍 Sample Output
-```
---- File Analysis Report ---
-Total Lines: 3
-Total Words: 17
-Top 10 Words:
-this: 2
-is: 2
-a: 2
-hello: 2
-file: 1
-parser: 1
-java: 1
-great: 1
-again: 1
-test: 1
-```
+This code is submitted exclusively for review by the NWU Centre for Text Technologies. Intellectual Property remains with the author.
 
 ---
 
-## 🧪 Run Unit Tests
+## 💬 Notes
 
-```bash
-mvn test
-```
-
-Unit tests verify core parsing logic, including line/word counting and frequency map.
-
----
-
-## 🌱 Ideas for Future Enhancements
-
-- NLP integration (stopword removal, stemming)
-- Web dashboard using Thymeleaf or React
-- Database integration with Spring Data JPA
-- Role-based access control (Spring Security)
-- Swagger/OpenAPI documentation
-
----
-
-## 📃 License
-
-This code is provided for review and demonstration only. All rights reserved by the author.
-
----
-
-## 📬 Contact
-
-**Oreneile Emmanuel Sejeso**  
-✉️ sejeso.oreneile@gmail.com  
-🔗 GitHub: [github.com/MrEmmanuel](https://github.com/MrEmmanuel)
+- This is a personal project originally built 2 years ago and recently modernized for showcase purposes.
+- Code from current professional work was not authorized for disclosure.
