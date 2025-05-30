@@ -26,6 +26,17 @@ It is intended as a showcase for roles involving backend development, data/text 
 - ✅ Spring Boot-based structure
 - ✅ Includes unit test for core logic
 - ✅ Maven-enabled build and test process
+- ✅ REST API for file upload and analysis
+
+---
+
+## 📂 Supported File Formats
+
+- Plain text files (`.txt`)
+- Log files (`.log`)
+- CSV files (`.csv`) — reads as plain text; no structured CSV parsing yet
+
+> ⚠️ Note: All files are treated as line-based plain text. Special formatting (like CSV columns) is not interpreted.
 
 ---
 
@@ -52,6 +63,8 @@ file-parser/
 │   │           ├── FileReaderService.java
 │   │           ├── ParserService.java
 │   │           └── ReportService.java
+│   │       └── controller/
+│   │           └── FileController.java  # REST API for file uploads
 │   └── test/java/com/oreneile/fileparser/
 │       └── ParserServiceTest.java       # Unit test
 ├── pom.xml                              # Maven build configuration
@@ -74,12 +87,18 @@ file-parser/
 mvn clean package
 ```
 
-2. **Run the application**
+2. **Run the application (CLI Mode)**
 ```bash
 java -jar target/file-parser-1.0-SNAPSHOT.jar path/to/your/textfile.txt
 ```
 
-3. **Output**
+3. **Run the application (API Mode)**
+```bash
+mvn spring-boot:run
+```
+Access API at: `http://localhost:8080/api/files/upload`
+
+4. **Output**
 - Console: displays line/word count and top 10 most frequent words
 - File: writes to `yourfile.txt.out`
 
@@ -123,7 +142,6 @@ Unit tests verify core parsing logic, including line/word counting and frequency
 
 ## 🌱 Ideas for Future Enhancements
 
-- REST API for file upload and retrieval
 - NLP integration (stopword removal, stemming)
 - Web dashboard using Thymeleaf or React
 - Database integration with Spring Data JPA
