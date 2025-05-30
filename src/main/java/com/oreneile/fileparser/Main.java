@@ -20,6 +20,7 @@ import java.util.Map;
 
 @SpringBootApplication
 public class Main implements CommandLineRunner {
+
 	@Autowired
 	private FileReaderService fileReaderService;
 
@@ -36,13 +37,14 @@ public class Main implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		if (args.length == 0) {
-			System.out.println("Please provide a path to the file to parse as a command line argument.");
+			System.out.println("Usage: java -jar file-parser.jar <file_path>");
 			return;
 		}
+
 		String filePath = args[0];
 		List<String> lines = fileReaderService.readLines(filePath);
 		Map<String, Object> stats = parserService.analyzeContent(lines);
 		reportService.printReport(stats);
+		reportService.writeReportToFile(stats, "analysis_report.txt");
 	}
-
 }
