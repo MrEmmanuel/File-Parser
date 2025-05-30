@@ -132,14 +132,6 @@ Unit tests verify core parsing logic, including line/word counting and frequency
 
 ---
 
-## 📎 Context for Reviewers (NWU Submission)
-
-> This project was originally a personal learning tool and has been updated for submission as part of my application to the Assistant Programmer (PF02501) role at NWU.  
-> It showcases my ability to work with Java, Spring Boot, clean code structure, modular services, and automated testing.  
-> Due to company IP restrictions, I was unable to submit proprietary work code and have used this project to demonstrate my technical ability.
-
----
-
 ## 🌱 Ideas for Future Enhancements
 
 - NLP integration (stopword removal, stemming)
@@ -159,5 +151,5 @@ This code is provided for review and demonstration only. All rights reserved by 
 ## 📬 Contact
 
 **Oreneile Emmanuel Sejeso**  
-✉️ mr.emmanuelsejeso@gmail.com  
+✉️ sejeso.oreneile@gmail.com  
 🔗 GitHub: [github.com/MrEmmanuel](https://github.com/MrEmmanuel)
