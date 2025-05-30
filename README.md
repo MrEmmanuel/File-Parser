@@ -8,44 +8,51 @@
 
 ## 📝 Project Overview
 
-This application allows users to upload plain text files via a REST API and generates simple analytics:
-- Total lines
-- Total words
-- Word frequency
+This application allows users to upload text-based files via a REST API and performs basic content analysis:
+- Total number of lines
+- Total number of words
+- Word frequency breakdown
 - Top 10 most frequent words
 
-> ✅ Recently updated from a personal project to a professional, Maven-structured Spring Boot application, demonstrating clean code, modular design, RESTful best practices, and testability.
+It demonstrates clean Spring Boot architecture, Maven-based project structure, and RESTful design best practices.
 
 ---
 
 ## 🚀 Features
 
-- REST API to upload `.txt` files
-- Automatic file content analysis
-- Console and optional file report logging
-- Swagger UI documentation
-- JUnit 5 test coverage with `MockMvc`
-- Error handling for empty/missing/invalid files
+- REST API to upload text files
+- File content analysis: line count, word count, word frequency
+- Swagger UI documentation for interactive testing
+- Console and file-based reporting (optional)
+- Comprehensive unit tests for service and controller
+- Error handling for invalid, empty, or missing files
 
 ---
 
-## 🧪 Sample Endpoints
+## 📂 Supported File Formats
 
-### 🔄 Upload a File
-```
-POST /api/files/upload
-Content-Type: multipart/form-data
-```
+The current implementation supports the following plain-text formats:
+- `.txt` – standard plain text files
+- `.csv` – comma-separated value files (processed as raw text)
+- `.log` – typical log file structure
+- `.md` – markdown files
 
-Form field: `file` → upload your `.txt` file
-
-### 📘 Swagger UI
-
-> http://localhost:8080/swagger-ui/index.html
+Files are treated as **text streams**. The parser does not currently interpret format-specific structure (e.g., CSV columns).
 
 ---
 
-## 📊 Sample Output
+## 📘 Swagger UI
+
+After starting the app, open:
+```
+http://localhost:8080/swagger-ui/index.html
+```
+
+Use the **`/api/files/upload`** endpoint to upload and analyze a file.
+
+---
+
+## 🧪 Sample Response
 
 ```json
 {
@@ -61,55 +68,47 @@ Form field: `file` → upload your `.txt` file
 
 ---
 
-## 📁 Supported Formats
+## ▶️ How to Run
 
-Currently supports:
-- `.txt` (plain text)
+### Prerequisites
 
-Planned enhancements:
-- `.csv`, `.log`, `.md`
+- Java 17+
+- Maven 3.6+
+- Internet connection (for dependency resolution)
+
+### Steps
+
+```bash
+# 1. Clone or unzip the project
+cd file-parser
+
+# 2. Build the application
+mvn clean install
+
+# 3. Run the Spring Boot application
+mvn spring-boot:run
+```
+
+Open [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) to access the API interface.
 
 ---
 
-## 🧪 Testing
+## 🧪 Running Tests
 
-To run all tests:
+To run unit and integration tests:
+
 ```bash
 mvn test
 ```
 
 Test coverage includes:
-- File parsing logic
-- REST API endpoint
-- Invalid input (empty or missing file)
-- Large file simulation
+- File parsing logic via `ParserServiceTest`
+- REST controller upload functionality via `FileControllerTest`
+- Edge cases: large files, empty files, no file upload
 
 ---
 
-## 🛠 Requirements
-
-- Java 17+
-- Maven 3.6+
-- Internet for dependency downloads
-
----
-
-## ▶️ Running the App
-
-```bash
-# Clone or unzip project
-cd file-parser
-
-# Build and run
-mvn clean install
-mvn spring-boot:run
-```
-
-Then visit: http://localhost:8080/swagger-ui/index.html
-
----
-
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
 src/
@@ -117,21 +116,22 @@ src/
 │   ├── java/com/oreneile/fileparser/
 │   │   ├── Main.java
 │   │   ├── controller/FileController.java
-│   │   └── service/{ParserService, ReportService}.java
+│   │   └── service/
+│   │       ├── ParserService.java
+│   │       └── ReportService.java
 │   └── resources/application.properties
 ├── test/
-│   └── java/com/oreneile/fileparser/controller/FileControllerTest.java
+│   └── java/com/oreneile/fileparser/
+│       ├── ParserServiceTest.java
+│       └── controller/FileControllerTest.java
+pom.xml
+README.md
 ```
 
 ---
 
 ## 🔐 License
 
-This code is submitted exclusively for review by the NWU Centre for Text Technologies. Intellectual Property remains with the author.
+This project is open for educational and demonstration purposes.  
+All rights reserved by the author unless stated otherwise.
 
----
-
-## 💬 Notes
-
-- This is a personal project originally built 2 years ago and recently modernized for showcase purposes.
-- Code from current professional work was not authorized for disclosure.
