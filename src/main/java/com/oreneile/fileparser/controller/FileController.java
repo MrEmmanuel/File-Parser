@@ -26,7 +26,7 @@ public class FileController {
     @Autowired
     private ReportService reportService;
 
-    @PostMapping("/upload")
+    @PostMapping(value = "/upload", consumes = "multipart/form-data")
     @Operation(summary = "Upload and analyze a text file")
     public ResponseEntity<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
