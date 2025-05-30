@@ -30,16 +30,19 @@ public class FileController {
     @Operation(summary = "Upload and analyze a text file")
     public ResponseEntity<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            List<String> lines = new BufferedReader(
-                    new InputStreamReader(file.getInputStream())
-            ).lines().collect(Collectors.toList());
+            if (file.isEmpty()) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Uploaded file is empty"));
+            }
+
+            List<String> lines = new BufferedReader(new InputStreamReader(file.getInputStream()))
+                    .lines().collect(Collectors.toList());
 
             Map<String, Object> stats = parserService.analyzeContent(lines);
-            reportService.printReport(stats); // optional: log to console
+            reportService.printReport(stats);
             return ResponseEntity.ok(stats);
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Failed to process file: " + e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 }
